@@ -1,3 +1,4 @@
+using GeekShopping.ProductAPI.Config;
 using GeekShopping.ProductAPI.Model.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("MySQlConnection:MySQlConnectionString");
 builder.Services.AddDbContext<MySQLContext>(options =>
-options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)))
+//Add Mapper Configuration
+.AddAutoMapperConfiguration()
+.AddDependencyInjection();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
