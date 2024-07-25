@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using GeekShopping.ProductAPI.Data.ValueObjects;
+﻿using GeekShopping.ProductAPI.Data.ValueObjects;
 using GeekShopping.ProductAPI.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,12 +27,12 @@ namespace GeekShopping.ProductAPI.Controllers
         public async Task<ActionResult<ProductVo>> FindById(long id)
         {
             var product = await _repository.FindById(id);
-            if (product == null) return NotFound();
+            if (product.Id <= 0) return NotFound();
             return Ok(product);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductVo>> Create(ProductVo vo)
+        public async Task<ActionResult<ProductVo>> Create([FromBody] ProductVo vo)
         {
             if (vo == null) return BadRequest();
             var product = await _repository.Create(vo);
